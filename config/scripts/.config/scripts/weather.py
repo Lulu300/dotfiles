@@ -21,7 +21,7 @@ icons = {
     '50n' : ''
 }
 try:
-    owm = pyowm.OWM('0889e27988b659f5771cd0aabfd7379d')
+    owm = pyowm.OWM('')
     weather = owm.weather_at_place('Paris,FR').get_weather()
     print("{0} {1:0.1f}°C".format(
             icons[weather.get_weather_icon_name()],
