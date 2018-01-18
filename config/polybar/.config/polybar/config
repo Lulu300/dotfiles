@@ -14,7 +14,7 @@ font-2 = Wuncon Siji:pixelsize=10;0
 
 modules-left = i3
 modules-center = date weather
-modules-right = wireless-network cpu memory temperature pavolume backlight battery powermenu
+modules-right = wireless-network cpu memory temperature volume backlight battery powermenu
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
@@ -24,7 +24,7 @@ scroll-down = i3wm-wsprev
 type = internal/i3
 
 # Icons
-ws-icon-0 = 1;
+ws-icon-0 = 1;
 ws-icon-1 = 2;
 ws-icon-2 = 3;
 ws-icon-3 = 4;
@@ -105,7 +105,7 @@ type = internal/date
 interval = 1
 
 date = %a %b %d, 
-time = %H:%M:%S
+time = %H:%M
 date-alt = %A, %d %B %Y
 time-alt = %H:%M:%S
 
@@ -120,7 +120,7 @@ type = internal/battery
 
 full-at = 100
 
-battery = BAT1
+battery = BAT0
 adapter = ACAD
 
 poll-interval = 5
@@ -148,7 +148,7 @@ animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-framerate = 500
-
+time-format = %H:%M
 
 [module/backlight]
 type = internal/backlight
@@ -160,20 +160,6 @@ format-padding = 2
 
 label =  %percentage%%
 
-
-[module/pavolume]
-type = custom/script
-
-interval = 1
-
-format-padding = 2
-
-exec = ~/.config/scripts/pavolume.sh
-
-click-left = ~/.config/scripts/pavolume.sh --togmute
-scroll-up = ~/.config/scripts/pavolume.sh --up
-scroll-down = ~/.config/scripts/pavolume.sh --down
-
 [module/volume]
 type = internal/volume
 
@@ -184,10 +170,11 @@ headphone-soundcard = default
 master-mixer = Master
 # speaker-mixer = Speaker
 # headphone-mixer = Headphone
-# amixer controls | sed -r "/CARD/\!d; s/.*=([0-9]+).*name='([^']+)'.*/printf '%3.0f: %s\n' '\1' '\2'/e"
+# amixer controls | sed -r "/CARD/\!d; s/.*=([0-9]+).*name='([^']+)'.*/printf '%3.0f: %s\n' 
+'\1' '\2'/e"
 # headphone-id = 9
 
-mapped = true
+mapped = false
 format-volume = <ramp-volume> <label-volume>
 label-muted = 
 label-muted-foreground = #66
@@ -197,6 +184,7 @@ ramp-volume-2 = 
 
 ramp-headphones-0 = 
 ramp-headphones-1 = 
+label-volume = %percentage%%
 
 [module/powermenu]
 type = custom/menu
@@ -248,14 +236,15 @@ type = custom/script
 interval = 1200
 format-padding = 2
 exec = ~/.config/scripts/weather.py
+click-left = ~/.config/scripts/weather.py
 
 [module/wireless-network]
 type = internal/network
 
-interface = wlo1
+interface = wlp2s0
 format-connected = <label-connected>
 format-connected-padding = 2
 format-disconnected = <label-disconnected>
 format-disconnected-padding = 2
-label-connected =  %essid%
+label-connected =  %essid% %downspeed:9%
 label-disconnected =  None
